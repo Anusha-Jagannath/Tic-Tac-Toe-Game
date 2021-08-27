@@ -8,5 +8,7 @@ public class Main {
 		game.createBoard();
 		game.playerChoice();
 		game.displayBoard();
+		game.userMove();
+		game.computerMove();
 	}
 }
