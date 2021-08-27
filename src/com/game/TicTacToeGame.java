@@ -30,4 +30,15 @@ public class TicTacToeGame {
 			System.out.println("Computer Team: " + computerOption);
 		}
 	}
+
+	/*
+	 * UseCase 3 - Method to display the board For loop helps in displaying the
+	 * available spaces for the user to make a move
+	 */
+	public void displayBoard() {
+		for (int i = 1; i < 10; i += 3) {
+			System.out.println(board[i] + " | " + board[i + 1] + " | " + board[i + 2]);
+			System.out.println("--------- ");
+		}
+	}
 }
