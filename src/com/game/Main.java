@@ -9,6 +9,7 @@ public class Main {
 		game.playerChoice();
 		game.tossMethod();
 		game.displayBoard();
+		game.statistics();
 //		game.userMove();
 //		game.computerMove();
 	}
