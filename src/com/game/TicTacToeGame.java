@@ -10,10 +10,12 @@ public class TicTacToeGame {
 	char turnToPlay = 'P';
 	char computerOption;
 	int computerIndex;
+	int userIndex;
 	int flag = 0;
 	int winnerStatus = 0 ;
 	int tie = 0 ;
 	int changeUserTurn = 0 ;
+	int count = 0;
 	Scanner scanner = new Scanner(System.in);
 
 	public void createBoard() {
@@ -58,7 +60,7 @@ public class TicTacToeGame {
 	 */
 	public void userMove() {
 		if(turnToPlay == 'P') {
-		int userIndex;
+		
 		System.out.println("Enter the index between 1-9");
 		userIndex = scanner.nextInt();
 		if (userIndex <= 0 || userIndex > 9)
@@ -73,23 +75,23 @@ public class TicTacToeGame {
 	 * usecase4 - Method to make computer move taking input from random function
 	 * computer chooses index
 	 */
-	public void computerMove() {
-		
-		if(turnToPlay == 'C') {
-		computerIndex = random.nextInt(9) + 1;
-		if (board[computerIndex] == ' ') {
-			System.out.println("Computer chose index "+computerIndex);
-			board[computerIndex] = computerOption;
-			//displayBoard();
-			System.out.println();
-		} 
-		else {
-			System.out.println("Sorry, Enter a different index number, this index number is not available.");
-			computerMove();
-		   }
-		}	
-
-	}
+//	public void computerMove() {
+//		
+//		if(turnToPlay == 'C') {
+//		computerIndex = random.nextInt(9) + 1;
+//		if (board[computerIndex] == ' ') {
+//			System.out.println("Computer chose index "+computerIndex);
+//			board[computerIndex] = computerOption;
+//			//displayBoard();
+//			System.out.println();
+//		} 
+//		else {
+//			System.out.println("Sorry, Enter a different index number, this index number is not available.");
+//			computerMove();
+//		   }
+//		}	
+//
+//	}
 
 	/*
 	 * usecase 5 - method to check if cell is free or not cell is free then assign
@@ -142,36 +144,113 @@ public class TicTacToeGame {
 	 */
 	public void statistics()
 	{
-		Scanner sc = new Scanner(System.in);
-		if(winnerStatus == 0)
-			System.out.println("Winner: 0");
-		else
-			System.out.println("Winner: ");
-		System.out.println("Tie Games: " + tie);
+		Scanner sc=new Scanner(System.in);
 		System.out.println("Do you want to change turns? (Y/N):  ");
 		char newUserOption = sc.next().charAt(0); 
 		if(newUserOption == 'Y')
 		{
-			if(turnToPlay == 'P')
+			for (int row = 1; row < 9; row++) 
+	        {
+	            String line = null;
+	  
+	            switch (row) { 
+	            case 1:
+	                line = ""+board[1] + board[2] + board[3];
+	                break;
+	            case 2:
+	                line = ""+board[4] + board[5] + board[6];
+	                break;
+	            case 3:
+	                line = ""+board[7] + board[8] + board[9];
+	                break;
+	            case 4:
+	                line = ""+board[1] + board[4] + board[7];
+	                break;
+	            case 5:
+	                line = ""+board[2] + board[5] + board[8];
+	                break;
+	            case 6:
+	                line = ""+board[3] + board[5] + board[9];
+	                break;
+	            case 7:
+	                line = ""+board[1] + board[5] + board[9];
+	                break;
+	            case 8:
+	                line = ""+board[3] + board[5] + board[7];
+	                break;
+	            }
+	            //For  winner
+	            if (line.equals("XXX")||line.equals("OOO")) {
+	                winnerStatus=1;
+	            }
+	              
+	         }
+	        int i=1;
+	        for(i=1;i<board.length;i++)
+	        {
+	        	if(board[i]==' ')
+	        		break;
+	        }
+	        if(i==10)
+	        	tie=1;
+	        if(winnerStatus==1)						//check for winner
 			{
-				turnToPlay ='C';
-				//Swapping userOption and ComputerOption
-				int temp = userOption;
-				userOption = computerOption;
-				computerOption = userOption;
-				displayBoard();
+				if(turnToPlay=='C')
+					System.out.println("Computer has won the game.");
+				else
+					System.out.println("Congratulations, You won the game");
 			}
-			else
+			else if(tie==1)								//check for tie
 			{
-				turnToPlay = 'P';
-				//Swapping userOption and ComputerOption
-				int temp = userOption;
-				userOption = computerOption;
-				computerOption = userOption;
-				displayBoard();
+				System.out.println( "It's a draw.");
 			}
+			else													//change the turn
+			{
+				if(turnToPlay=='C')
+				{
+					turnToPlay='P';
+					System.out.println("Player's turn to play");
+					userMove();
+				}
+				else
+				{
+					turnToPlay='C';
+					System.out.println("Computer's turn to play");
+					computerMove();
+				}
+					
+			}
+			
 		}// end of 1st if
 		
 	}//end of method statistics
-	 
+	
+	/* UseCase 8 - On Computer getting its turn would like the computer to play like me
+	 * 
+	 */
+	public void computerMove()
+	{
+		computerIndex = random.nextInt(9) + 1;
+		count=1;
+		do {
+			occupyCorner();
+		} while (board[computerIndex]!=' ');
+
+		board[computerIndex] = computerOption;
+		displayBoard();
+		userMove();
+    }    
+        
+	
+
+	private void occupyCorner() {
+		
+		int[] arr = {1,3,7,9};
+		int corner = random.nextInt(3);
+		computerIndex = arr[corner];
+		//System.out.println("Computer chose index "+computerIndex);
+		
+	}
+	
+	
 }
