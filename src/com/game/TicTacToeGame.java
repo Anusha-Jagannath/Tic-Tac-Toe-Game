@@ -5,8 +5,12 @@ import java.util.Scanner;
 
 public class TicTacToeGame {
 	private char[] board = new char[10];
+	Random random = new Random();
 	char userOption;
+	char turnToPlay;
 	char computerOption;
+	int computerIndex;
+	int flag = 0;
 	Scanner scanner = new Scanner(System.in);
 
 	public void createBoard() {
@@ -50,6 +54,7 @@ public class TicTacToeGame {
 	 * if index value is valid or not
 	 */
 	public void userMove() {
+		if(turnToPlay == 'P') {
 		int userIndex;
 		System.out.println("Enter the index between 1-9");
 		userIndex = scanner.nextInt();
@@ -58,24 +63,28 @@ public class TicTacToeGame {
 		else {
 			checkEmpty(userIndex);
 		}
-	}
+	 }
+  }
 
 	/*
 	 * usecase4 - Method to make computer move taking input from random function
 	 * computer chooses index
 	 */
 	public void computerMove() {
-		Random random = new Random();
-		int computerIndex = random.nextInt(9) + 1;
+		
+		if(turnToPlay == 'C') {
+		computerIndex = random.nextInt(9) + 1;
 		if (board[computerIndex] == ' ') {
 			System.out.println("Computer chose index "+computerIndex);
 			board[computerIndex] = computerOption;
-			displayBoard();
+			//displayBoard();
 			System.out.println();
-		} else {
+		} 
+		else {
 			System.out.println("Sorry, Enter a different index number, this index number is not available.");
 			computerMove();
-		}
+		   }
+		}	
 
 	}
 
@@ -92,4 +101,36 @@ public class TicTacToeGame {
 		}
 		
 	}
+	
+	/*
+	 * usecase 6 - method to perform toss and selecting whether user or computer plays first
+	 * use random function to generate head or tail
+	 */
+	public void tossMethod()
+	{
+		System.out.println("1. Head\n2. Tail ");
+		int userChoice=scanner.nextInt();							
+		int toss = random.nextInt(2)+1;						
+		
+		if(userChoice == toss )
+		{
+			System.out.println("Player's Turn.");
+			turnToPlay='P';
+			userMove();
+			turnToPlay='C';
+			computerMove();
+
+		}
+		else
+		{
+			System.out.println("Computer's turn");
+			turnToPlay = 'C';
+			computerMove();
+			turnToPlay='P';
+			userMove();
+			flag = 1;
+			
+		}
+	}
+	 
 }
