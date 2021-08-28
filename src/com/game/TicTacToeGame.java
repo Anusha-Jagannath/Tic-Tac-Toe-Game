@@ -7,10 +7,13 @@ public class TicTacToeGame {
 	private char[] board = new char[10];
 	Random random = new Random();
 	char userOption;
-	char turnToPlay;
+	char turnToPlay = 'P';
 	char computerOption;
 	int computerIndex;
 	int flag = 0;
+	int winnerStatus = 0 ;
+	int tie = 0 ;
+	int changeUserTurn = 0 ;
 	Scanner scanner = new Scanner(System.in);
 
 	public void createBoard() {
@@ -132,5 +135,43 @@ public class TicTacToeGame {
 			
 		}
 	}
+	
+	/* UseCase 7 - As player would expect the Tic Tac Toe App to determine after every move the winner or the tie or change the turn
+	 * This method prints the Game statistics like the Winner, Tie or not and it helps in Changing the turn 
+	 * Swapping is done in order to change the user turns.
+	 */
+	public void statistics()
+	{
+		Scanner sc = new Scanner(System.in);
+		if(winnerStatus == 0)
+			System.out.println("Winner: 0");
+		else
+			System.out.println("Winner: ");
+		System.out.println("Tie Games: " + tie);
+		System.out.println("Do you want to change turns? (Y/N):  ");
+		char newUserOption = sc.next().charAt(0); 
+		if(newUserOption == 'Y')
+		{
+			if(turnToPlay == 'P')
+			{
+				turnToPlay ='C';
+				//Swapping userOption and ComputerOption
+				int temp = userOption;
+				userOption = computerOption;
+				computerOption = userOption;
+				displayBoard();
+			}
+			else
+			{
+				turnToPlay = 'P';
+				//Swapping userOption and ComputerOption
+				int temp = userOption;
+				userOption = computerOption;
+				computerOption = userOption;
+				displayBoard();
+			}
+		}// end of 1st if
+		
+	}//end of method statistics
 	 
 }
