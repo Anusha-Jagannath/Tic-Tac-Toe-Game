@@ -17,6 +17,7 @@ public class TicTacToeGame {
 	int changeUserTurn = 0;
 	int count = 0;
 	int arrCorners[] = {1,3,7,9};
+	int[] arrSides = { 2,4,6,8 };
 	Scanner scanner = new Scanner(System.in);
 
 	public void createBoard() {
@@ -242,36 +243,53 @@ public class TicTacToeGame {
 				|| (board[4] == board[7] && board[4] == computerOption)
 				|| (board[5] == board[9] && board[5] == computerOption)) {
 			board[1] = computerOption;
+			System.out.println("Computer chose index 1");
 
 		} else if ((board[2] == ' ') && (board[1] == board[3] && board[1] == computerOption)
 				|| (board[5] == board[8] && board[8] == computerOption)) {
 			board[2] = computerOption;
+			System.out.println("Computer chose index 2");
+
 		} else if ((board[3] == ' ') && (board[2] == board[1] && board[2] == computerOption)
 				|| (board[5] == board[7] && board[5] == computerOption)
 				|| (board[6] == board[9] && board[6] == computerOption)) {
 			board[3] = computerOption;
+			System.out.println("Computer chose index 3");
+
 		} else if ((board[4] == ' ') && (board[1] == board[7] && board[1] == computerOption)
 				|| (board[5] == board[6] && board[5] == computerOption)) {
 			board[4] = computerOption;
+			System.out.println("Computer chose index 4");
+
 		} else if ((board[5] == ' ') && (board[2] == board[8] && board[2] == computerOption)
 				|| (board[4] == board[6] && board[4] == computerOption)
 				|| (board[1] == board[9] && board[9] == computerOption)
 				|| (board[7] == board[3] && board[3] == computerOption)) {
 			board[5] = computerOption;
+			System.out.println("Computer chose index 5");
+
 		} else if ((board[6] == ' ') && (board[9] == board[3] && board[3] == computerOption)
 				|| (board[4] == board[5] && board[4] == computerOption)) {
 			board[6] = computerOption;
+			System.out.println("Computer chose index 6");
+
 		} else if ((board[7] == ' ') && (board[1] == board[4] && board[1] == computerOption)
 				|| (board[5] == board[3] && board[3] == computerOption)
 				|| (board[8] == board[9] && board[9] == computerOption)) {
 			board[7] = computerOption;
+			System.out.println("Computer chose index 7");
+
 		} else if ((board[8] == ' ') && (board[2] == board[5] && board[2] == computerOption)
 				|| (board[9] == board[7] && board[7] == computerOption)) {
 			board[8] = computerOption;
+			System.out.println("Computer chose index 8");
+
 		} else if ((board[9] == ' ') && (board[6] == board[3] && board[3] == computerOption)
 				|| (board[8] == board[7] && board[7] == computerOption)
 				|| (board[5] == board[1] && board[5] == computerOption)) {
 			board[9] = computerOption;
+			System.out.println("Computer chose index 9");
+
 		}
 		//usecase 10 - neither of us are winning then computer should take one of the available corners
 		else
@@ -284,14 +302,34 @@ public class TicTacToeGame {
 				if(board[arrCorners[i]]==' ')
 					{
 					board[arrCorners[i]]=computerOption;
+					System.out.println("Computer chose index "+i);
 					flag1=1;
 					break;
 					}
 			}
-		}
-
+			
+			//checking for center and remaining values usecase11
+			if(flag1==0 )
+				{
+				if(board[5]==' ')
+					board[5]=computerOption;
+				else
+				{
+					
+					for(int i=0;i<4;i++)
+					{
+						if(board[arrSides[i]]==' ')
+							{
+							board[arrSides[i]]=computerOption;
+							System.out.println("Computer chose index "+i);
+							break;
+							}
+					}//end of for
+				}
+			}//end of if of UC11
+		}//end of main else
 	}
-
+		
 	// This method defines the conditions for a win
 	public char getWinner() {
 		String line = null;
@@ -373,16 +411,16 @@ public class TicTacToeGame {
 
 			if (turnToPlay == 'C') {
 				computerMove();
-				displayBoard();
+				//displayBoard();
 				displayWinner();
 				turnToPlay = 'P';
-				userMove();
+				//userMove();
 			} else if (turnToPlay == 'P') {
 				userMove();
 				displayWinner();
 				//showBoard();
 				turnToPlay = 'C';
-				computerMove();
+				//computerMove();
 
 			}
 			displayBoard();
