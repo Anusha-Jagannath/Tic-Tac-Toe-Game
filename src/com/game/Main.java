@@ -1,5 +1,7 @@
 package com.game;
 
+import java.util.Scanner;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -13,5 +15,12 @@ public class Main {
 //		game.statistics();
 //		game.userMove();
 //		game.computerMove();
+		System.out.println("Want to play the again ?\n1. Yes\n2. No");
+		Scanner sc = new Scanner(System.in);
+		int choice = sc.nextInt();
+		if(choice == 1)
+			game.gameFlow();
+		else
+			System.out.println("Thank you for playing");
 	}
 }
